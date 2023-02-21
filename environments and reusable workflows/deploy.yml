@@ -1,0 +1,29 @@
+name: Deploy WebApp to Azure
+
+on:
+  workflow_call:
+    inputs:
+       environment:
+        type: string
+        description: environment to deploy to
+        required: true
+    secrets:
+      SECRET_NAME:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+   
+    steps:
+     - name: Instead of real deployment, just print some variables
+        shell: bash
+        run: |
+          echo "Name: $name"
+          echo "environment: $environment"
+          echo "a_variable: $a_variable"
+        env:
+          name: ${{ secrets.SECRET_NAME }}
+          environment: ${{ inputs.environment }}
+          a_variable: ${{ vars.a_variable }}

@@ -1,0 +1,19 @@
+name: Verify Pull-request
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  deploy-stage:
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit # Gives access to all secrets the workflow has access to
+    with:
+      environment: Stage
+  
+  deploy-production:
+    uses: ./.github/workflows/deploy.yml
+    secrets:
+      SECRET_NAME: ${{ secrets.SECRET_NAME }} # This is the secret that is passed to the workflow
+    with:
+      environment: Production
